@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 from sqlalchemy.orm import Session
-from src.adapters.database.postgres.engine import get_db
+from src.datalayer.database.postgres.engine import get_db
 from src.core.domain.user.user import User
 
 @dataclass

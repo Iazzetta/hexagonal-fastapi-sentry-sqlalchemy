@@ -1,6 +1,6 @@
 from typing import Optional
-from src.adapters.database.postgres.engine import get_db
-from src.adapters.database.postgres.user import UserSchema
+from src.datalayer.database.postgres.engine import get_db
+from src.datalayer.database.postgres.user import UserSchema
 from src.core.domain.user.database_interface import UserDatabaseInterface
 
 class UserAdapter(UserDatabaseInterface):
