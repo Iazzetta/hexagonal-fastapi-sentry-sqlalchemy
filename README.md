@@ -2,7 +2,7 @@
 
 Hexagonal Architecture in Python with Sentry, FastAPI and SQLAlchemy
 
-#### dev
+#### run
 ```
 sh start.sh
 ```
