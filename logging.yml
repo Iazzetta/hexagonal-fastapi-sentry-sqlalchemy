@@ -1,0 +1,23 @@
+version: 1
+
+formatters:
+  simple_formatter:
+    format: "%(asctime)s %(name)s: %(message)s"
+  extended_formatter:
+    format: "%(asctime)s %(name)s %(levelname)s: %(message)s"
+
+handlers:
+  console_handler:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: simple_formatter
+
+  file_handler:
+    class: logging.FileHandler
+    level: INFO
+    filename: debug.log
+    formatter: extended_formatter
+
+root:
+  handlers: [console_handler, file_handler]
+  propagate: true

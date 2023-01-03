@@ -1,0 +1,1 @@
+uvicorn src.main.application:core_module --reload
