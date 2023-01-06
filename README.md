@@ -1,6 +1,6 @@
 # hexagonal-fastapi-sentry-sqlalchemy
 
-Hexagonal Architecture in Python with Sentry, FastAPI and SQLAlchemy
+Hexagonal Architecture in Python with Sentry, FastAPI and SQLAlchemy on Kubernetes
 
 ### Kind
 #### create kind cluster
