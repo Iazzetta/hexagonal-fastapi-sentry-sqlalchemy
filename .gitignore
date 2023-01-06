@@ -4,3 +4,5 @@ venv
 .env
 debug.log
 database.db
+docker-clear.txt
+.pytest_cache

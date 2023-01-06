@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-api
+spec:
+  selector:
+    app: fastapi-api
+  ports:
+    - protocol: "TCP"
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-api
+  labels:
+    app: fastapi-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastapi-api
+  template:
+    metadata:
+      labels:
+        app: fastapi-api
+    spec:
+      containers:
+        - name: fastapi-api
+          image: guilhermeia/fastapi-api:v1
+          ports:
+            - containerPort: 80
+          imagePullPolicy: IfNotPresent
+          resources:
+            # You must specify requests for CPU to autoscale
+            # based on CPU utilization
+            requests:
+              cpu: "250m"
+          - env:
+            - name: X_TOKEN
+              value: $X_TOKEN
+            - name: SENTRY_URI
+              value: $SENTRY_URI
