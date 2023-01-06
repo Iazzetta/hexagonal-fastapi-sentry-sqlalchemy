@@ -1,8 +1,6 @@
 from dataclasses import dataclass
 from typing import Optional
-from src.datalayer.database.postgres.engine import get_db
 from src.datalayer.database.postgres.schemas.user import UserSchema
-from src.core.domain.user.database_interface import UserDatabaseInterface
 from src.datalayer.database.postgres.user import UserDatabaseRepository
 
 @dataclass
