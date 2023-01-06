@@ -11,6 +11,7 @@ def test_create_users():
         content = json.dumps({'name': 'Teste', 'email': 'teste@teste.com', 'password': '123456'}),
         headers={'X-Token': Credentials.X_TOKEN.value}
     )
+    print(response.json())
     assert response.status_code == 200
     data_response = response.json()
     assert data_response['data']['name'] == 'Teste'

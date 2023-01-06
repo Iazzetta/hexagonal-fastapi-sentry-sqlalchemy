@@ -7,8 +7,6 @@ from src.core.domain.user.user import User
 @dataclass
 class UserDatabaseInterface(ABC):
 
-    database: any
-
     @abstractmethod
     def create(self, name: str, email: str, password: str) -> User:
         pass

@@ -1,16 +1,35 @@
-from sqlalchemy import Column, Integer, String
-from src.datalayer.database.postgres.engine import Base
+from typing import Optional
+from dataclasses import dataclass
+from sqlalchemy.orm import Session
+from src.datalayer.database.postgres.engine import get_db
+from src.core.domain.user.database_interface import UserDatabaseInterface
+from src.datalayer.database.postgres.schemas.user import UserSchema
 
-class UserSchema(Base):
-    __tablename__ = "user"
+@dataclass
+class UserDatabaseRepository(UserDatabaseInterface):
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    email = Column(String(120))
-    password = Column(String(120))
+    __database: Session = next(get_db())
 
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-        }
+    def create(self, name: str, email: str, password: str) -> UserSchema:
+        db_user = UserSchema(
+            name = name,
+            email = email,
+            password = password
+        )
+        self.__database.add(db_user)
+        self.__database.commit()
+        self.__database.refresh(db_user)
+        return db_user
+
+    # TODO - filter and pagination
+    def list(self, text_search: Optional[str] = None,
+                    page: Optional[str] = 1) -> list[UserSchema]:
+        return [user.to_dict() for user in self.__database.query(UserSchema).all() ]
+    
+    def get(self, user_id: int) -> UserSchema:
+        return self.__database.query(UserSchema).filter(UserSchema.id == user_id).first()
+    
+    def delete(self, user_id: int) -> bool:
+        self.__database.query(UserSchema).filter(UserSchema.id == user_id).delete()
+        self.__database.commit()
+        return True

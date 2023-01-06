@@ -1,29 +1,32 @@
+from dataclasses import dataclass
 from typing import Optional
 from src.datalayer.database.postgres.engine import get_db
-from src.datalayer.database.postgres.user import UserSchema
+from src.datalayer.database.postgres.schemas.user import UserSchema
 from src.core.domain.user.database_interface import UserDatabaseInterface
+from src.datalayer.database.postgres.user import UserDatabaseRepository
 
-class UserAdapter(UserDatabaseInterface):
+@dataclass
+class UserAdapter():
+
+    __user_repository: UserDatabaseRepository
 
     def create(self, name: str, email: str, password: str) -> UserSchema:
-        db_user = UserSchema(
-            name = name,
-            email = email,
-            password = password
-        )
-        self.database.add(db_user)
-        self.database.commit()
-        self.database.refresh(db_user)
-        return db_user
+
+        new_user = self.__user_repository.create(name, email, password)
+        return new_user
 
     def list(self, text_search: Optional[str] = None,
                     page: Optional[str] = 1) -> list[UserSchema]:
-        return [user.to_dict() for user in self.database.query(UserSchema).all() ]
+
+        list_users = self.__user_repository.list(text_search, page)
+        return list_users
     
     def get(self, user_id: int) -> UserSchema:
-        return self.database.query(UserSchema).filter(UserSchema.id == user_id).first()
+
+        user = self.__user_repository.get(user_id)
+        return user
     
     def delete(self, user_id: int) -> bool:
-        self.database.query(UserSchema).filter(UserSchema.id == user_id).delete()
-        self.database.commit()
-        return True
+        
+        deleted = self.__user_repository.delete(user_id)
+        return deleted
