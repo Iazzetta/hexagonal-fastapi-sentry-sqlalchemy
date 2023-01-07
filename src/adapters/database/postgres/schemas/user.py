@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String
-from src.datalayer.database.postgres.engine import Base
+from src.adapters.database.postgres.engine import Base
 
 class UserSchema(Base):
     __tablename__ = "user"

@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.datalayer.database.postgres.engine import Base, get_db, engine
+from src.adapters.database.postgres.engine import Base, get_db, engine
 from src.main.credentials import Credentials
-from src.presentation.routers import users
+from src.ports.http.routers import users
 import sentry_sdk
 
 def configure_sentry() -> None:

@@ -1,9 +1,9 @@
 from typing import Optional
 from dataclasses import dataclass
 from sqlalchemy.orm import Session
-from src.datalayer.database.postgres.engine import get_db
+from src.adapters.database.postgres.engine import get_db
 from src.core.domain.user.database_interface import UserDatabaseInterface
-from src.datalayer.database.postgres.schemas.user import UserSchema
+from src.adapters.database.postgres.schemas.user import UserSchema
 
 @dataclass
 class UserDatabaseRepository(UserDatabaseInterface):

@@ -3,10 +3,10 @@ from fastapi import APIRouter, Depends
 from src.core.domain.user.service import UserService
 from src.core.domain.user.user import User
 from src.main.authentication import get_token_header
-from src.presentation.factories.user import make_user_controller
+from src.ports.http.factories.user import make_user_controller
 
 from src.main.logger import logger
-from src.presentation.helpers.responses import response_error, response_success
+from src.ports.http.helpers.responses import response_error, response_success
 
 blueprint_name = 'users'
 
@@ -30,6 +30,15 @@ async def create_user(user: User, controller: UserService = Depends(make_user_co
 async def list_users(controller: UserService = Depends(make_user_controller)):
     try:
         response = controller.list()
+        return response_success(response)
+    except Exception as e:
+        logger.error(e)
+        return response_error(model = blueprint_name, err = str(e))
+
+@router.delete("/delete/{user_id}")
+async def delete_user(user_id: int, controller: UserService = Depends(make_user_controller)):
+    try:
+        response = controller.delete(user_id)
         return response_success(response)
     except Exception as e:
         logger.error(e)
