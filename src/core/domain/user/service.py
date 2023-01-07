@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 from typing import Optional
-from src.adapters.database.postgres.schemas.user import UserSchema
-from src.adapters.database.postgres.user import UserDatabaseRepository
+
+from src.repository.sqlalchemy.schemas.user import UserSchema
+from src.repository.sqlalchemy.user import UserDatabaseRepository
 
 @dataclass
 class UserService():

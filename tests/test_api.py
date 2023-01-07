@@ -1,6 +1,5 @@
 import json
 from fastapi.testclient import TestClient
-from src.adapters.database.postgres.schemas.user import UserSchema
 from src.main.application import core_module
 from src.main.credentials import Credentials
 

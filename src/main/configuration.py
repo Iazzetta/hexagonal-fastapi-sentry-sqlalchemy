@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.adapters.database.postgres.engine import Base, get_db, engine
 from src.main.credentials import Credentials
 from src.ports.http.routers import users
 import sentry_sdk
+
+from src.repository.sqlalchemy.engine import Base, engine, get_db
 
 def configure_sentry() -> None:
     sentry_sdk.init(
