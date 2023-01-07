@@ -1,9 +1,9 @@
 import json
 from fastapi.testclient import TestClient
-from src.main.application import core_module
+from src.main.application import create_application
 from src.main.credentials import Credentials
 
-client = TestClient(core_module)
+client = TestClient(create_application())
 
 def test_api_delete_users():
     # get users
