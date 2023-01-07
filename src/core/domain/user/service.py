@@ -4,7 +4,7 @@ from src.datalayer.database.postgres.schemas.user import UserSchema
 from src.datalayer.database.postgres.user import UserDatabaseRepository
 
 @dataclass
-class UserAdapter():
+class UserService():
 
     __user_repository: UserDatabaseRepository
 
